@@ -153,6 +153,23 @@ app.get("/list-3-transactions", async (req, res) => {
   }
 });
 
+app.get("/list-transactions", async (req, res) => {
+  try {
+    const transactions = await Transaction.find().sort({ date: -1 });
+    return res.status(200).json({
+      message: "Transactions fetched successfully",
+      status: true,
+      data: transactions,
+    });
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).json({
+      message: "Internal server error",
+      status: false,
+    });
+  }
+});
+
 app.post("/add-budget", async (req, res) => {
   try {
     const { budgets } = req.body;
@@ -161,7 +178,7 @@ app.post("/add-budget", async (req, res) => {
         message: "Please provide all the required fields",
         status: false,
       });
-    } 
+    }
 
     const existingBudgets = await Budget.find({});
     const updatedBudgets = [];
@@ -266,6 +283,71 @@ app.get("/todays-budget", async (_, res) => {
         earnedInPercentage,
         spentInPercentage,
       },
+    });
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).json({
+      message: "Internal server error",
+      status: false,
+    });
+  }
+});
+
+app.put("/update-transaction/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { amount, description, category, date, type } = req.body;
+
+    if (!amount || !description || !category || !date || !type) {
+      return res.status(400).json({
+        message: "Please provide all the required fields",
+        status: false,
+      });
+    }
+
+    const transaction = await Transaction.findByIdAndUpdate(
+      id,
+      { amount, description, category, date, type },
+      { new: true }
+    );
+
+    if (!transaction) {
+      return res.status(404).json({
+        message: "Transaction not found",
+        status: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Transaction updated successfully",
+      status: true,
+      data: transaction,
+    });
+  } catch (err) {
+    console.error(err.message);
+    return res.status(500).json({
+      message: "Internal server error",
+      status: false,
+    });
+  }
+});
+
+app.delete("/delete-transaction/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const transaction = await Transaction.findByIdAndDelete(id);
+
+    if (!transaction) {
+      return res.status(404).json({
+        message: "Transaction not found",
+        status: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Transaction deleted successfully",
+      status: true,
     });
   } catch (err) {
     console.error(err.message);
