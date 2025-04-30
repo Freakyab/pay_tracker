@@ -19,7 +19,7 @@ function Navbar() {
         <h2 className="sm:text-xl text-md">Welcome back, User</h2>
       </div>
       <div className="flex items-center gap-4">
-        <p className={` p-2 ${pathname === "/" && " border-b-2 border-secondary "}`}
+        <p className={` p-2 ${pathname === "/" && " border-b-2 border-secondary cursor-pointer"}`}
           onClick={() => router.push("/")}
         >
           {isMobile ? (
@@ -31,7 +31,7 @@ function Navbar() {
           )}
         </p>
 
-        <p className={` p-2 ${pathname === "/transactions" && " border-b-2 border-secondary "}`}
+        <p className={` p-2 cursor-pointer ${pathname === "/transactions" && " border-b-2 border-secondary "}`}
           onClick={() => router.push("/transactions")}
         >
           {isMobile ? (
