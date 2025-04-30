@@ -35,7 +35,6 @@ function AddTransaction({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
-      console.log("Transaction data:", formData);
       setIsDialogOpen(false);
 
       const response = await fetch("http://localhost:8000/add", {
@@ -49,7 +48,6 @@ function AddTransaction({
       const resBody = await response.json();
 
       if (resBody.status) {
-        console.log("Transaction added successfully:", resBody.data);
         alert("Transaction added successfully!");
         setFormData({
           amount: "",

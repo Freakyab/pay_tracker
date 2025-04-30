@@ -26,7 +26,6 @@ function RecentTransactions() {
         }
         const resData = await response.json();
         if (resData.status) {
-          console.log("Recent transactions:", resData.data);
           setRecentTransactions(resData.data);
         } else {
           console.error("Error fetching recent transactions:", resData.message);

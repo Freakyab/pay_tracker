@@ -31,7 +31,6 @@ export const CategoriesProvider = ({
       });
 
       const responseJson = await response.json();
-      console.log("Categories response:", responseJson);
       if (responseJson.status && responseJson.data) {
         setData(responseJson.data);
         setBudgetData(responseJson.budgets);

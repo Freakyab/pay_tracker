@@ -16,7 +16,6 @@ function MontlySpend() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Fetching data...");
         const response = await fetch("http://localhost:8000/todays-budget", {
           method: "GET",
           headers: {
@@ -28,7 +27,6 @@ function MontlySpend() {
         }
 
         const result = await response.json();
-        console.log(result,"result");
         if(result.status) {
           setData({
             earned: result.data.earned,

@@ -6,9 +6,12 @@ import {
 } from "lucide-react";
 import React from "react";
 import { useIsMobile } from "../hooks/use-mobile";
+import { useRouter, usePathname} from "next/navigation";
 
 function Navbar() {
   const isMobile = useIsMobile();
+  const  router = useRouter();
+  const  pathname = usePathname();
   return (
     <nav className="flex justify-between bg-indigo-900/50 backdrop-blur-sm  w-full p-4 rounded-t-xl shadow-xl shadow-black/30">
       <div className="flex items-center gap-4">
@@ -16,7 +19,9 @@ function Navbar() {
         <h2 className="sm:text-xl text-md">Welcome back, User</h2>
       </div>
       <div className="flex items-center gap-4">
-        <p className="border-b-2 p-2 border-secondary ">
+        <p className={` p-2 ${pathname === "/" && " border-b-2 border-secondary "}`}
+          onClick={() => router.push("/")}
+        >
           {isMobile ? (
             <LayoutDashboard className="w-4 h-4" />
           ) : (
@@ -26,7 +31,9 @@ function Navbar() {
           )}
         </p>
 
-        <p className="">
+        <p className={` p-2 ${pathname === "/transactions" && " border-b-2 border-secondary "}`}
+          onClick={() => router.push("/transactions")}
+        >
           {isMobile ? (
             <BadgeDollarSign className="w-4 h-4" />
           ) : (

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { CategoriesProvider } from "@/components/context/categories";
+import Navbar from "@/components/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <CategoriesProvider>{children}</CategoriesProvider>
+        <CategoriesProvider>
+          <div className="p-2 bg-[#1d2041] h-full max-w-screen  text-white">
+            <Navbar />
+            {children}
+          </div>
+        </CategoriesProvider>
       </body>
     </html>
   );
