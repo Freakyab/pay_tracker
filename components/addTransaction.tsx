@@ -35,7 +35,6 @@ function AddTransaction({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
-      e.preventDefault();
       console.log("Transaction data:", formData);
       setIsDialogOpen(false);
 
